@@ -30,12 +30,20 @@ de-interview-prep/
 │   ├── streaming-schema.md               ← Kafka schema design + evolution (Avro, Schema Registry)
 │   ├── analytics-schema.md               ← Star schema / data warehouse DDL
 │   ├── data-cleansing.md                 ← Immutable Parquet cleansing pipeline
-│   └── sensitive-data.md                 ← Privacy-preserving data engineering
+│   ├── sensitive-data.md                 ← Privacy-preserving data engineering
+│   ├── news-monitoring.md               ← Real-time feed + tag filtering + re-ingestion ETL
+│   ├── rate-limiter.md                   ← Redis, sliding window, distributed rate limiting
+│   ├── event-pipeline-orchestration.md   ← Event-driven ETL orchestration (Kafka + Airflow/Argo)
+│   └── progressive-scaling.md            ← Progressive scaling: 1 req/min → 1M req/min
 │
 └── coding-questions/
     ├── distributed-enrichments.md        ← Stream aggregation + timeouts + distributed scaling
     ├── story-index.md                    ← Inverted index + binary search + distributed extension
-    └── top-k-mapreduce.md               ← Top-K algorithms (heap/sort/quickselect) + Spark
+    ├── top-k-mapreduce.md               ← Top-K algorithms (heap/sort/quickselect) + Spark
+    ├── event-deduplication.md            ← Exact + fuzzy dedup, strategy pattern, sliding window
+    ├── duplicate-news-stories.md         ← Sliding-window dedup with timed dictionary
+    ├── gpu-resource-manager.md           ← Event log + point-in-time queries (feature store pattern)
+    └── dependency-resolution.md          ← Graph traversal, topological sort, DAG ordering
 ```
 
 ---
@@ -88,8 +96,12 @@ Practice designing end-to-end systems. For each question:
 | [Data Cleansing](design-questions/data-cleansing.md) | ETL pipeline design | 30 min |
 | [Data Aggregation](design-questions/data-aggregation.md) | ETL + MapReduce + storage | 45 min |
 | [Sensitive Data](design-questions/sensitive-data.md) | Privacy in data pipelines | 25 min |
+| [Rate Limiter](design-questions/rate-limiter.md) | Redis, sliding window, distributed | 45 min |
+| [News Monitoring](design-questions/news-monitoring.md) | Kafka partitioning, re-ingestion ETL | 60 min |
 | [Feature Store](design-questions/feature-store.md) | Online/offline architecture | 45 min |
+| [Event Pipeline Orchestration](design-questions/event-pipeline-orchestration.md) | Kafka + Airflow/Argo orchestration | 45 min |
 | [ETL System Design](design-questions/etl-system-design.md) | Full system (Kafka → multi-store) | 60 min |
+| [Progressive Scaling](design-questions/progressive-scaling.md) | 1 req/min → 1M req/min | 60 min |
 
 ---
 
@@ -101,7 +113,11 @@ Practice these until you can write the code + complexity analysis + follow-up di
 |---|---|---|
 | [Top-K MapReduce](coding-questions/top-k-mapreduce.md) | Heap, sort, MapReduce | Easy → Medium |
 | [Story Index](coding-questions/story-index.md) | Inverted index, binary search | Easy → Medium |
+| [Dependency Resolution](coding-questions/dependency-resolution.md) | Graph traversal, topological sort | Easy → Hard |
+| [Duplicate News Stories](coding-questions/duplicate-news-stories.md) | Sliding-window dedup, timed dict | Easy → Medium |
+| [Event Deduplication](coding-questions/event-deduplication.md) | Fuzzy dedup, strategy pattern, deque | Medium |
 | [Distributed Enrichments](coding-questions/distributed-enrichments.md) | Stream aggregation, threading, sharding | Medium → Hard |
+| [GPU Resource Manager](coding-questions/gpu-resource-manager.md) | Event sourcing, point-in-time queries | Medium → Hard |
 
 ---
 
@@ -172,4 +188,3 @@ Input → [Map] → (key, value) pairs → [Shuffle] → grouped by key → [Red
 - Airflow / Argo — DAG orchestration, task dependencies, retry policies
 - Flink — stateful stream processing, checkpoints, watermarks, exactly-once
 - Delta Lake / Apache Iceberg — ACID on data lakes, time travel, schema enforcement
-# de-interview-prep
